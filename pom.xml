@@ -1,0 +1,74 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.onndoo</groupId>
+	<artifactId>booker</artifactId>
+	<version>1.0</version>
+	<packaging>war</packaging>
+	<name>booker</name>
+	<description>Jakarta EE Application to read books.</description>
+	
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.report.sourceEncoding>UTF-8</project.report.sourceEncoding>
+		<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.target>11</maven.compiler.target>
+		<jakartaee-api.version>10.0.0</jakartaee-api.version>
+		<wildfly.version>33.0.2.Final</wildfly.version>
+		<lombok.version>1.18.32</lombok.version>
+		<compiler-plugin.version>3.13.0</compiler-plugin.version>
+		<war-plugin.version>3.4.0</war-plugin.version>
+		<wildfly-plugin.version>5.0.1.Final</wildfly-plugin.version>
+		<postgresql.version>42.7.4</postgresql.version>
+	</properties>
+	
+	<dependencies>
+		<dependency>
+			<groupId>jakarta.platform</groupId>
+			<artifactId>jakarta.jakartaee-api</artifactId>
+			<version>${jakartaee-api.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${lombok.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>${postgresql.version}</version>
+		</dependency>
+	</dependencies>
+	
+	<build>
+		<finalName>booker</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${compiler-plugin.version}</version>
+			</plugin>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>${war-plugin.version}</version>
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+			<!-- Execute 'mvn clean package wildfly:dev' to run the application. -->
+			<plugin>
+				<groupId>org.wildfly.plugins</groupId>
+				<artifactId>wildfly-maven-plugin</artifactId>
+				<version>${wildfly-plugin.version}</version>
+				<configuration>
+					<version>${wildfly.version}</version>
+					<server-config>standalone-full.xml</server-config>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
+</project>
